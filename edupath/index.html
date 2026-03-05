@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPath AI - AI 기반 해외유학 맞춤형 컨설팅 플랫폼</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #1a202c;
+      line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,144C960,149,1056,139,1152,122.7C1248,107,1344,85,1392,74.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+      background-size: cover;
+      pointer-events: none;
+    }
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .hero .tagline {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      opacity: 0.95;
+    }
+    .hero .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      margin-bottom: 40px;
+      max-width: 700px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 18px 48px;
+      background: white;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 20px;
+    }
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+    .hero .note {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Features Section */
+    .section {
+      padding: 80px 20px;
+      background: white;
+    }
+    .section.gray { background: #f7fafc; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #2d3748;
+    }
+    .section-desc {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #718096;
+      margin-bottom: 60px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    .feature-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #2d3748;
+    }
+    .feature-desc {
+      color: #718096;
+      line-height: 1.7;
+    }
+
+    /* Pricing Section */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 36px 28px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      border-color: #667eea;
+    }
+    .pricing-card.featured {
+      border-color: #667eea;
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+    }
+    .pricing-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #667eea;
+      color: white;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .pricing-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #2d3748;
+    }
+    .pricing-price {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+    .pricing-period {
+      font-size: 0.9rem;
+      color: #718096;
+      margin-bottom: 24px;
+    }
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .pricing-features li {
+      padding: 8px 0;
+      color: #4a5568;
+      font-size: 0.95rem;
+    }
+    .pricing-features li::before {
+      content: '✓';
+      color: #48bb78;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    .pricing-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .pricing-btn:hover {
+      background: #5a67d8;
+    }
+
+    /* Footer */
+    .footer {
+      background: #2d3748;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .footer a {
+      color: #90cdf4;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero .tagline { font-size: 1.2rem; }
+      .section-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="logo">🎓 EduPath AI</div>
+    <h1>합격이 아니라, 성공을 설계합니다</h1>
+    <p class="tagline">AI 기반 해외유학 맞춤형 중장기 통합 컨설팅 플랫폼</p>
+    <p class="subtitle">
+      초·중·고 전 학교급 커버 | 입학부터 졸업·취업까지 10년 로드맵 | 24시간 AI 무제한 상담
+    </p>
+    <a href="onboarding.html" class="cta-btn">무료로 시작하기 →</a>
+    <p class="note">15문항, 10분이면 당신만의 유학 로드맵이 완성됩니다</p>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">기존 유학 컨설팅의 한계</h2>
+      <p class="section-desc">
+        오프라인 에이전시는 AI 기술이 전무하고, 글로벌 AI 플랫폼은 한국 맥락 이해가 없습니다.<br>
+        입학 '합격'에만 집중하고, 졸업 후 사회 진출까지 함께하는 플랫폼은 없었습니다.
+      </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">❌</div>
+          <h3 class="feature-title">학교급별 분리</h3>
+          <p class="feature-desc">초등 조기유학, 중학 보딩스쿨, 고등 대학 지원이 완전히 다른 루트임에도 통합 관리 플랫폼 전무</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⏱️</div>
+          <h3 class="feature-title">단기 중심</h3>
+          <p class="feature-desc">입학 시점에만 집중, 적응·재학·졸업·취업까지 이어지는 중장기 플래닝 부재</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💸</div>
+          <h3 class="feature-title">고가·획일화</h3>
+          <p class="feature-desc">수백~수천만원 비용, 경험 기반 주관적 추천, 개인 맞춤형 알고리즘 부재</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="section gray">
+    <div class="container">
+      <h2 class="section-title">EduPath AI의 차별점</h2>
+      <p class="section-desc">
+        국내 최초 초·중·고 전 학교급 커버 + 졸업 후 커리어까지 AI가 설계하는<br>
+        중장기 통합 유학 컨설팅 플랫폼
+      </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3 class="feature-title">AI 학생 프로파일링</h3>
+          <p class="feature-desc">15문항 10분으로 학교급·성향·예산·진로 통합 분석 → 합격가능성 % 예측 + 맞춤 학교 추천</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">10년 로드맵 자동 생성</h3>
+          <p class="feature-desc">준비기→지원기→적응기→성장기→진출기, 5단계 타임라인 + 단계별 액션플랜 시각화</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3 class="feature-title">예산 시뮬레이션 & ROI</h3>
+          <p class="feature-desc">4년 총비용·장학금 차감·졸업후 평균 연봉 대비 투자회수율 그래프 시각화</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3 class="feature-title">실시간 정책 반영</h3>
+          <p class="feature-desc">비자·이민정책·장학금·환율 실시간 업데이트, 트럼프 정책 변경 즉각 반영</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3 class="feature-title">24시간 AI 챗봇</h3>
+          <p class="feature-desc">학생 프로파일 컨텍스트 유지, 비자·에세이·인터뷰·학교생활 무제한 Q&A</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌏</div>
+          <h3 class="feature-title">한국 맥락 완전 반영</h3>
+          <p class="feature-desc">한국 학제·문화 이해 + 미국·영국·캐나다·호주·싱가포르 등 교육 선진국 전 커버</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">합리적인 가격, 무한한 가능성</h2>
+      <p class="section-desc">
+        기존 오프라인 컨설팅 대비 1/10 비용으로<br>
+        동일하거나 우수한 품질의 AI 컨설팅을 제공합니다
+      </p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-name">Free</div>
+          <div class="pricing-price">₩0</div>
+          <div class="pricing-period">영구 무료</div>
+          <ul class="pricing-features">
+            <li>기본 프로파일 입력</li>
+            <li>학교 추천 3개 제공</li>
+            <li>간단한 로드맵 확인</li>
+          </ul>
+          <a href="onboarding.html" class="pricing-btn">무료로 시작</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <span class="pricing-badge">인기</span>
+          <div class="pricing-name">Basic</div>
+          <div class="pricing-price">₩29,000</div>
+          <div class="pricing-period">월 결제</div>
+          <ul class="pricing-features">
+            <li>전체 추천 리스트</li>
+            <li>10년 로드맵 상세</li>
+            <li>예산 계산기</li>
+            <li>장학금 시뮬레이터</li>
+          </ul>
+          <a href="onboarding.html" class="pricing-btn">시작하기</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-name">Pro</div>
+          <div class="pricing-price">₩79,000</div>
+          <div class="pricing-period">월 결제</div>
+          <ul class="pricing-features">
+            <li>Basic 전체 기능</li>
+            <li>AI 챗봇 무제한</li>
+            <li>에세이 피드백</li>
+            <li>선배 멘토 매칭</li>
+            <li>실시간 정책 알림</li>
+          </ul>
+          <a href="onboarding.html" class="pricing-btn">시작하기</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-name">Premium</div>
+          <div class="pricing-price">₩300,000</div>
+          <div class="pricing-period">1회 결제</div>
+          <ul class="pricing-features">
+            <li>Pro 전체 기능</li>
+            <li>전문 컨설턴트 1:1</li>
+            <li>서류 전체 검토</li>
+            <li>화상 상담 3회</li>
+            <li>합격 후 관리</li>
+          </ul>
+          <a href="onboarding.html" class="pricing-btn">시작하기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section gray">
+    <div class="container" style="text-align: center;">
+      <h2 class="section-title">지금 바로 시작하세요</h2>
+      <p class="section-desc">
+        15문항, 단 10분 투자로<br>
+        AI가 분석한 당신만의 맞춤형 유학 로드맵을 받아보세요
+      </p>
+      <a href="onboarding.html" class="cta-btn">무료로 프로파일 분석 받기 →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 EduPath AI. All rights reserved.</p>
+    <p style="margin-top: 8px; font-size: 0.9rem; opacity: 0.8;">
+      문의: contact@edupath.ai | 
+      <a href="#">이용약관</a> | 
+      <a href="#">개인정보처리방침</a>
+    </p>
+  </footer>
+</body>
+</html>

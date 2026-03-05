@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>학생 프로파일 분석 - EduPath AI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 48px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #667eea;
+      margin-bottom: 12px;
+    }
+    .header h1 {
+      font-size: 1.8rem;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+    .header p {
+      color: #718096;
+      font-size: 1rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .progress-text {
+      text-align: center;
+      color: #718096;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .question-container {
+      display: none;
+    }
+    .question-container.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+    .question-desc {
+      color: #718096;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .option {
+      padding: 16px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: white;
+    }
+    .option:hover {
+      border-color: #667eea;
+      background: #f7fafc;
+    }
+    .option.selected {
+      border-color: #667eea;
+      background: #edf2f7;
+    }
+    .option-label {
+      font-weight: 600;
+      color: #2d3748;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .option-sub {
+      font-size: 0.9rem;
+      color: #718096;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+      margin-bottom: 24px;
+    }
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+    }
+    .btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-prev {
+      background: #e2e8f0;
+      color: #4a5568;
+    }
+    .btn-prev:hover {
+      background: #cbd5e0;
+    }
+    .btn-next {
+      background: #667eea;
+      color: white;
+      flex: 1;
+    }
+    .btn-next:hover {
+      background: #5a67d8;
+    }
+    .btn-next:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 32px 24px; }
+      .header h1 { font-size: 1.5rem; }
+      .question-title { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🎓 EduPath AI</div>
+      <h1>AI 학생 프로파일 분석</h1>
+      <p>15문항, 약 10분 소요 | 정확한 분석을 위해 솔직하게 답변해주세요</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">문항 1 / 15</div>
+
+    <!-- Q1: 학교급 -->
+    <div class="question-container active" data-question="1">
+      <h2 class="question-title">현재 어느 학교급에 재학 중이신가요?</h2>
+      <p class="question-desc">학교급에 따라 진학 루트와 필요 시험이 달라집니다.</p>
+      <div class="options">
+        <div class="option" data-value="elementary">
+          <span class="option-label">초등학교 4~6학년</span>
+          <span class="option-sub">Jr. Boarding School 준비 (미국 중학교)</span>
+        </div>
+        <div class="option" data-value="middle">
+          <span class="option-label">중학교 1~3학년</span>
+          <span class="option-sub">Middle/Senior Boarding School 준비</span>
+        </div>
+        <div class="option" data-value="high_early">
+          <span class="option-label">고등학교 1학년</span>
+          <span class="option-sub">명문 Boarding High School or 대학 준비</span>
+        </div>
+        <div class="option" data-value="high_late">
+          <span class="option-label">고등학교 2~3학년</span>
+          <span class="option-sub">4년제 대학 지원 (아이비리그~주립대)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2: 목표 국가 -->
+    <div class="question-container" data-question="2">
+      <h2 class="question-title">희망하는 유학 국가를 선택하세요</h2>
+      <p class="question-desc">복수 선택 가능합니다 (최대 3개)</p>
+      <div class="options">
+        <div class="option" data-value="usa" data-multi="true">
+          <span class="option-label">🇺🇸 미국</span>
+          <span class="option-sub">아이비리그, 명문 보딩스쿨</span>
+        </div>
+        <div class="option" data-value="uk" data-multi="true">
+          <span class="option-label">🇬🇧 영국</span>
+          <span class="option-sub">옥스브리지, 러셀그룹</span>
+        </div>
+        <div class="option" data-value="canada" data-multi="true">
+          <span class="option-label">🇨🇦 캐나다</span>
+          <span class="option-sub">UBC, 토론토대 등</span>
+        </div>
+        <div class="option" data-value="australia" data-multi="true">
+          <span class="option-label">🇦🇺 호주</span>
+          <span class="option-sub">G8 명문대학</span>
+        </div>
+        <div class="option" data-value="singapore" data-multi="true">
+          <span class="option-label">🇸🇬 싱가포르</span>
+          <span class="option-sub">NUS, NTU</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3: 영어 수준 -->
+    <div class="question-container" data-question="3">
+      <h2 class="question-title">현재 영어 실력은 어느 정도인가요?</h2>
+      <p class="question-desc">공인 시험 점수 또는 주관적 평가로 선택해주세요.</p>
+      <div class="options">
+        <div class="option" data-value="beginner">
+          <span class="option-label">기초 (TOEFL 60 미만)</span>
+          <span class="option-sub">일상 대화 어려움, 집중 훈련 필요</span>
+        </div>
+        <div class="option" data-value="intermediate">
+          <span class="option-label">중급 (TOEFL 60~80)</span>
+          <span class="option-sub">일상 대화 가능, 학습 지원 필요</span>
+        </div>
+        <div class="option" data-value="advanced">
+          <span class="option-label">고급 (TOEFL 80~100)</span>
+          <span class="option-sub">학업 영어 가능, 일부 지원 필요</span>
+        </div>
+        <div class="option" data-value="native">
+          <span class="option-label">원어민 수준 (TOEFL 100+)</span>
+          <span class="option-sub">완전한 영어 구사, 지원 불필요</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4: 학업 성적 -->
+    <div class="question-container" data-question="4">
+      <h2 class="question-title">최근 내신 성적은 어느 정도인가요?</h2>
+      <p class="question-desc">대략적인 범위로 선택해주세요.</p>
+      <div class="options">
+        <div class="option" data-value="top5">
+          <span class="option-label">상위 5% 이내</span>
+          <span class="option-sub">전 과목 A 또는 90점 이상</span>
+        </div>
+        <div class="option" data-value="top20">
+          <span class="option-label">상위 5~20%</span>
+          <span class="option-sub">대부분 A, 일부 B</span>
+        </div>
+        <div class="option" data-value="top50">
+          <span class="option-label">상위 20~50%</span>
+          <span class="option-sub">B 평균, 일부 A</span>
+        </div>
+        <div class="option" data-value="below50">
+          <span class="option-label">상위 50% 이하</span>
+          <span class="option-sub">C 평균 또는 그 이하</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5: 예산 범위 -->
+    <div class="question-container" data-question="5">
+      <h2 class="question-title">연간 유학 가능 예산은 얼마인가요?</h2>
+      <p class="question-desc">학비 + 기숙사 + 생활비 포함 (1년 기준)</p>
+      <div class="options">
+        <div class="option" data-value="under50m">
+          <span class="option-label">5천만원 미만</span>
+          <span class="option-sub">장학금 필수, 주립대 고려</span>
+        </div>
+        <div class="option" data-value="50to80m">
+          <span class="option-label">5천만원 ~ 8천만원</span>
+          <span class="option-sub">일반 사립대 가능</span>
+        </div>
+        <div class="option" data-value="80to1b">
+          <span class="option-label">8천만원 ~ 1억원</span>
+          <span class="option-sub">명문 사립대 가능</span>
+        </div>
+        <div class="option" data-value="over1b">
+          <span class="option-label">1억원 이상</span>
+          <span class="option-sub">아이비리그 포함 전 학교 가능</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6: 희망 전공/진로 -->
+    <div class="question-container" data-question="6">
+      <h2 class="question-title">관심 있는 전공 분야는 무엇인가요?</h2>
+      <p class="question-desc">복수 선택 가능 (최대 3개)</p>
+      <div class="options">
+        <div class="option" data-value="business" data-multi="true">
+          <span class="option-label">💼 경영·경제·금융</span>
+        </div>
+        <div class="option" data-value="engineering" data-multi="true">
+          <span class="option-label">⚙️ 공학·컴퓨터</span>
+        </div>
+        <div class="option" data-value="science" data-multi="true">
+          <span class="option-label">🔬 자연과학·의학</span>
+        </div>
+        <div class="option" data-value="humanities" data-multi="true">
+          <span class="option-label">📚 인문·사회과학</span>
+        </div>
+        <div class="option" data-value="arts" data-multi="true">
+          <span class="option-label">🎨 예체능·디자인·음악</span>
+        </div>
+        <div class="option" data-value="undecided" data-multi="true">
+          <span class="option-label">❓ 아직 정하지 못함</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7: 성격 유형 -->
+    <div class="question-container" data-question="7">
+      <h2 class="question-title">학생의 성격 유형은?</h2>
+      <p class="question-desc">학교 환경 매칭에 중요한 요소입니다</p>
+      <div class="options">
+        <div class="option" data-value="outgoing">
+          <span class="option-label">외향적·사교적</span>
+          <span class="option-sub">큰 규모 학교, 다양한 활동 (도시형)</span>
+        </div>
+        <div class="option" data-value="balanced">
+          <span class="option-label">균형잡힌 성격</span>
+          <span class="option-sub">중간 규모 학교, 적절한 지원</span>
+        </div>
+        <div class="option" data-value="introverted">
+          <span class="option-label">내향적·집중형</span>
+          <span class="option-sub">소규모 학교, 밀착 지도 (전원형)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8: 학습 스타일 -->
+    <div class="question-container" data-question="8">
+      <h2 class="question-title">선호하는 학습 방식은?</h2>
+      <p class="question-desc">학교 교육 철학과의 매칭에 사용됩니다</p>
+      <div class="options">
+        <div class="option" data-value="independent">
+          <span class="option-label">자기주도적·독립적</span>
+          <span class="option-sub">리버럴 아츠, 연구 중심</span>
+        </div>
+        <div class="option" data-value="structured">
+          <span class="option-label">체계적·가이드 필요</span>
+          <span class="option-sub">커리큘럼 구조화, 지원 시스템</span>
+        </div>
+        <div class="option" data-value="practical">
+          <span class="option-label">실용적·프로젝트형</span>
+          <span class="option-sub">Co-op, 인턴십 강조</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q9: 과외활동 경험 -->
+    <div class="question-container" data-question="9">
+      <h2 class="question-title">과외활동(동아리, 봉사, 수상) 경험은?</h2>
+      <p class="question-desc">미국 입시에서 중요한 요소입니다</p>
+      <div class="options">
+        <div class="option" data-value="extensive">
+          <span class="option-label">풍부함</span>
+          <span class="option-sub">리더십 포지션, 전국 단위 수상 등</span>
+        </div>
+        <div class="option" data-value="moderate">
+          <span class="option-label">보통</span>
+          <span class="option-sub">학교 동아리, 지역 봉사 등</span>
+        </div>
+        <div class="option" data-value="minimal">
+          <span class="option-label">부족함</span>
+          <span class="option-sub">준비 필요, 로드맵에 반영</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q10: 지원 시기 -->
+    <div class="question-container" data-question="10">
+      <h2 class="question-title">언제 입학을 희망하시나요?</h2>
+      <p class="question-desc">준비 기간 계산에 사용됩니다</p>
+      <div class="options">
+        <div class="option" data-value="1year">
+          <span class="option-label">1년 이내</span>
+          <span class="option-sub">집중 준비 필요, 단기 전략</span>
+        </div>
+        <div class="option" data-value="2years">
+          <span class="option-label">1~2년</span>
+          <span class="option-sub">표준 준비 기간, 충분한 스펙 강화</span>
+        </div>
+        <div class="option" data-value="3years">
+          <span class="option-label">2~3년</span>
+          <span class="option-sub">여유 있는 준비, 장기 전략</span>
+        </div>
+        <div class="option" data-value="flexible">
+          <span class="option-label">유동적</span>
+          <span class="option-sub">최적 시기 AI 추천 받기</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q11: 학교 규모 선호 -->
+    <div class="question-container" data-question="11">
+      <h2 class="question-title">선호하는 학교 규모는?</h2>
+      <p class="question-desc">학교 문화와 밀접한 관련이 있습니다</p>
+      <div class="options">
+        <div class="option" data-value="small">
+          <span class="option-label">소규모 (학부생 5천명 미만)</span>
+          <span class="option-sub">밀착 지도, 교수 관계 강화</span>
+        </div>
+        <div class="option" data-value="medium">
+          <span class="option-label">중규모 (5천~2만명)</span>
+          <span class="option-sub">균형잡힌 환경</span>
+        </div>
+        <div class="option" data-value="large">
+          <span class="option-label">대규모 (2만명 이상)</span>
+          <span class="option-sub">다양한 자원, 네트워킹</span>
+        </div>
+        <div class="option" data-value="any">
+          <span class="option-label">상관없음</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q12: 위치 선호 -->
+    <div class="question-container" data-question="12">
+      <h2 class="question-title">선호하는 학교 위치는?</h2>
+      <p class="question-desc">생활 환경 및 인턴십 기회에 영향</p>
+      <div class="options">
+        <div class="option" data-value="urban">
+          <span class="option-label">대도시 (뉴욕, 보스턴, LA 등)</span>
+          <span class="option-sub">다양한 문화, 취업 기회 많음</span>
+        </div>
+        <div class="option" data-value="suburban">
+          <span class="option-label">교외/중소도시</span>
+          <span class="option-sub">캠퍼스 라이프 중심, 안전</span>
+        </div>
+        <div class="option" data-value="rural">
+          <span class="option-label">소도시/전원</span>
+          <span class="option-sub">집중 학습 환경, 조용함</span>
+        </div>
+        <div class="option" data-value="any">
+          <span class="option-label">상관없음</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q13: 날씨 선호 -->
+    <div class="question-container" data-question="13">
+      <h2 class="question-title">선호하는 기후는?</h2>
+      <p class="question-desc">생활 적응에 중요한 요소입니다</p>
+      <div class="options">
+        <div class="option" data-value="warm">
+          <span class="option-label">따뜻한 기후 (캘리포니아, 플로리다 등)</span>
+        </div>
+        <div class="option" data-value="cold">
+          <span class="option-label">사계절 (동부, 중부 등)</span>
+        </div>
+        <div class="option" data-value="any">
+          <span class="option-label">상관없음</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q14: 졸업 후 계획 -->
+    <div class="question-container" data-question="14">
+      <h2 class="question-title">졸업 후 계획은?</h2>
+      <p class="question-desc">커리어 로드맵 설계에 중요합니다</p>
+      <div class="options">
+        <div class="option" data-value="work_abroad">
+          <span class="option-label">현지 취업 희망</span>
+          <span class="option-sub">OPT, H1B 비자 고려</span>
+        </div>
+        <div class="option" data-value="return_korea">
+          <span class="option-label">한국 귀국 취업</span>
+          <span class="option-sub">한국 기업·기관</span>
+        </div>
+        <div class="option" data-value="grad_school">
+          <span class="option-label">대학원 진학</span>
+          <span class="option-sub">석사·박사 과정</span>
+        </div>
+        <div class="option" data-value="undecided">
+          <span class="option-label">아직 정하지 못함</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q15: 추가 정보 -->
+    <div class="question-container" data-question="15">
+      <h2 class="question-title">추가로 고려해야 할 특별한 사항이 있나요?</h2>
+      <p class="question-desc">선택 사항 (공란 가능)</p>
+      <input type="text" id="additionalInfo" placeholder="예: 특정 장학금 관심, 특수 전공, 건강 이슈 등" />
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-prev" id="prevBtn" style="display:none;">이전</button>
+      <button class="btn btn-next" id="nextBtn">다음</button>
+    </div>
+  </div>
+
+  <script>
+    let currentQuestion = 1;
+    const totalQuestions = 15;
+    const answers = {};
+
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const questions = document.querySelectorAll('.question-container');
+
+    // 옵션 선택 이벤트
+    document.querySelectorAll('.option').forEach(option => {
+      option.addEventListener('click', function() {
+        const questionNum = this.closest('.question-container').dataset.question;
+        const isMulti = this.dataset.multi === 'true';
+        
+        if (isMulti) {
+          this.classList.toggle('selected');
+          const selected = Array.from(this.closest('.options').querySelectorAll('.option.selected'))
+            .map(o => o.dataset.value);
+          if (selected.length > 3) {
+            this.classList.remove('selected');
+            alert('최대 3개까지 선택 가능합니다');
+            return;
+          }
+          answers[`q${questionNum}`] = selected;
+        } else {
+          this.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          this.classList.add('selected');
+          answers[`q${questionNum}`] = this.dataset.value;
+        }
+        
+        nextBtn.disabled = false;
+      });
+    });
+
+    // 텍스트 입력 이벤트
+    document.getElementById('additionalInfo')?.addEventListener('input', function() {
+      answers.q15 = this.value;
+      nextBtn.disabled = false;
+    });
+
+    // 다음 버튼
+    nextBtn.addEventListener('click', () => {
+      if (currentQuestion === 15) {
+        // 마지막 질문 - 결과 페이지로 이동
+        localStorage.setItem('edupath_profile', JSON.stringify(answers));
+        window.location.href = 'results.html';
+        return;
+      }
+
+      const currentQ = questions[currentQuestion - 1];
+      const isMulti = currentQ.querySelector('[data-multi]');
+      const selected = isMulti 
+        ? currentQ.querySelectorAll('.option.selected').length > 0
+        : currentQ.querySelector('.option.selected') || currentQuestion === 15;
+
+      if (!selected && currentQuestion !== 15) {
+        alert('답변을 선택해주세요');
+        return;
+      }
+
+      currentQuestion++;
+      updateUI();
+    });
+
+    // 이전 버튼
+    prevBtn.addEventListener('click', () => {
+      if (currentQuestion > 1) {
+        currentQuestion--;
+        updateUI();
+      }
+    });
+
+    function updateUI() {
+      // 진행률 업데이트
+      const progress = (currentQuestion / totalQuestions) * 100;
+      progressBar.style.width = progress + '%';
+      progressText.textContent = `문항 ${currentQuestion} / ${totalQuestions}`;
+
+      // 질문 표시
+      questions.forEach((q, i) => {
+        q.classList.toggle('active', i === currentQuestion - 1);
+      });
+
+      // 버튼 표시
+      prevBtn.style.display = currentQuestion === 1 ? 'none' : 'block';
+      nextBtn.textContent = currentQuestion === totalQuestions ? 'AI 분석 시작' : '다음';
+      
+      // 마지막 질문은 입력란이므로 항상 활성화
+      nextBtn.disabled = currentQuestion === 15 ? false : true;
+
+      // 이전 답변 있으면 버튼 활성화
+      if (answers[`q${currentQuestion}`]) {
+        nextBtn.disabled = false;
+      }
+    }
+
+    // 초기화
+    updateUI();
+  </script>
+</body>
+</html>
