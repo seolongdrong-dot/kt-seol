@@ -3,60 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>구구단</title>
+  <title>kt-seol 프로젝트</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f0f4ff;
-      margin: 0;
-      padding: 20px;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      color: white;
     }
-    h1 {
-      text-align: center;
-      color: #3b4fd8;
-      margin-bottom: 30px;
+    h1 { font-size: 2rem; color: #e2b96f; margin-bottom: 8px; }
+    .sub { color: #aaa; font-size: 0.95rem; margin-bottom: 50px; }
+    .cards {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 16px;
-      max-width: 1100px;
-      margin: 0 auto;
+    a.card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 40px 36px;
+      width: 220px;
+      text-decoration: none;
+      color: white;
+      transition: transform 0.2s, background 0.2s;
     }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    a.card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.13);
     }
-    .card h2 {
-      text-align: center;
-      color: #3b4fd8;
-      margin: 0 0 10px;
-      font-size: 1.2rem;
-    }
-    .card p {
-      margin: 4px 0;
-      color: #333;
-      font-size: 0.95rem;
-    }
+    .icon { font-size: 3rem; margin-bottom: 16px; }
+    .title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .desc { font-size: 0.82rem; color: #bbb; text-align: center; line-height: 1.5; }
   </style>
 </head>
 <body>
-  <h1>구구단</h1>
-  <div class="grid" id="gugudan"></div>
-
-  <script>
-    const container = document.getElementById('gugudan');
-    for (let i = 2; i <= 9; i++) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `<h2>${i}단</h2>` +
-        Array.from({ length: 9 }, (_, j) =>
-          `<p>${i} × ${j + 1} = <strong>${i * (j + 1)}</strong></p>`
-        ).join('');
-      container.appendChild(card);
-    }
-  </script>
+  <h1>📚 kt-seol</h1>
+  <p class="sub">학습 프로그램 모음</p>
+  <div class="cards">
+    <a class="card" href="gugudan.html">
+      <div class="icon">✖️</div>
+      <div class="title">구구단</div>
+      <div class="desc">2단부터 9단까지<br>구구단 표</div>
+    </a>
+    <a class="card" href="english.html">
+      <div class="icon">💬</div>
+      <div class="title">원어민 영어 통암기</div>
+      <div class="desc">카드학습·받아쓰기로<br>10문장 네이티브 표현</div>
+    </a>
+  </div>
 </body>
 </html>
