@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>구구단</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #3b4fd8;
+      margin-bottom: 30px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .card h2 {
+      text-align: center;
+      color: #3b4fd8;
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+    .card p {
+      margin: 4px 0;
+      color: #333;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>구구단</h1>
+  <div class="grid" id="gugudan"></div>
+
+  <script>
+    const container = document.getElementById('gugudan');
+    for (let i = 2; i <= 9; i++) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<h2>${i}단</h2>` +
+        Array.from({ length: 9 }, (_, j) =>
+          `<p>${i} × ${j + 1} = <strong>${i * (j + 1)}</strong></p>`
+        ).join('');
+      container.appendChild(card);
+    }
+  </script>
+</body>
+</html>
