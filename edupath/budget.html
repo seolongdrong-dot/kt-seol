@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>예산 시뮬레이터 & ROI 분석 - EduPath AI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: #f7fafc;
+      color: #1a202c;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 48px 40px;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .card-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+    .input-label {
+      display: block;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+    select, input[type="number"], input[type="range"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    select:focus, input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    input[type="range"] {
+      padding: 0;
+    }
+    .range-value {
+      display: block;
+      text-align: right;
+      color: #667eea;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .summary-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .summary-row:last-child {
+      border-bottom: none;
+      padding-top: 20px;
+      margin-top: 12px;
+      border-top: 2px solid rgba(255,255,255,0.3);
+    }
+    .summary-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .summary-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .summary-row:last-child .summary-value {
+      font-size: 2rem;
+    }
+
+    .roi-section {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+    .roi-value {
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      color: white;
+      border-radius: 16px;
+      margin-bottom: 24px;
+    }
+    .roi-percentage {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .roi-label {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+    .roi-desc {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-top: 12px;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .comparison-item {
+      text-align: center;
+      padding: 20px;
+      background: #f7fafc;
+      border-radius: 12px;
+    }
+    .comparison-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #667eea;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .comparison-label {
+      font-size: 0.9rem;
+      color: #718096;
+    }
+
+    .info-box {
+      background: #edf7ed;
+      border-left: 4px solid #48bb78;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 24px;
+    }
+    .info-box p {
+      color: #2f855a;
+      margin-bottom: 8px;
+    }
+    .info-box ul {
+      margin-left: 20px;
+      color: #2f855a;
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 48px 32px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      margin: 0 8px;
+    }
+    .cta-btn:hover {
+      background: #5a67d8;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .grid-2col {
+        grid-template-columns: 1fr;
+      }
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+      .header h1 { font-size: 2rem; }
+      .roi-percentage { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>💰 예산 시뮬레이터 & ROI 분석</h1>
+      <p>4년 총 비용부터 졸업 후 기대 수익까지 완벽 계산</p>
+    </div>
+
+    <div class="grid-2col">
+      <!-- 입력 섹션 -->
+      <div class="card">
+        <h2 class="card-title">🏫 학교 정보</h2>
+        
+        <div class="input-group">
+          <label class="input-label">학교 선택</label>
+          <select id="school">
+            <option value="stanford">Stanford University</option>
+            <option value="mit">MIT</option>
+            <option value="berkeley">UC Berkeley</option>
+            <option value="cmu">Carnegie Mellon</option>
+            <option value="toronto">University of Toronto</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">전공 분야</label>
+          <select id="major">
+            <option value="cs">컴퓨터과학/공학</option>
+            <option value="business">경영/경제</option>
+            <option value="engineering">기타 공학</option>
+            <option value="science">자연과학</option>
+            <option value="humanities">인문/사회</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">장학금/재정지원 (연간)</label>
+          <input type="range" id="scholarship" min="0" max="8000" step="100" value="0">
+          <span class="range-value" id="scholarshipValue">₩0만원</span>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">기타 생활비 (월간)</label>
+          <input type="range" id="living" min="100" max="400" step="10" value="200">
+          <span class="range-value" id="livingValue">₩200만원</span>
+        </div>
+      </div>
+
+      <!-- 학교별 자동 데이터 -->
+      <div class="card">
+        <h2 class="card-title">📊 학교 데이터</h2>
+        <div class="input-group">
+          <label class="input-label">연간 학비</label>
+          <input type="number" id="tuition" value="8500" readonly style="background: #f7fafc;">
+        </div>
+        <div class="input-group">
+          <label class="input-label">기숙사/식비 (연간, 만원)</label>
+          <input type="number" id="housing" value="2200" readonly style="background: #f7fafc;">
+        </div>
+        <div class="input-group">
+          <label class="input-label">졸업생 평균 초봉 (만원)</label>
+          <input type="number" id="salary" value="12000" readonly style="background: #f7fafc;">
+        </div>
+        <div class="input-group">
+          <label class="input-label">취업률</label>
+          <input type="number" id="employment" value="95" readonly style="background: #f7fafc;">
+        </div>
+      </div>
+    </div>
+
+    <!-- 총 비용 요약 -->
+    <div class="summary-box">
+      <div class="summary-row">
+        <span class="summary-label">연간 학비</span>
+        <span class="summary-value" id="sumTuition">₩8,500만원</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">연간 기숙사/식비</span>
+        <span class="summary-value" id="sumHousing">₩2,200만원</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">연간 생활비</span>
+        <span class="summary-value" id="sumLiving">₩2,400만원</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">연간 장학금 차감</span>
+        <span class="summary-value" id="sumScholarship">- ₩0만원</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">연간 실비용</span>
+        <span class="summary-value" id="sumYearly">₩13,100만원</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">4년 총 비용</span>
+        <span class="summary-value" id="sumTotal">₩5억 2,400만원</span>
+      </div>
+    </div>
+
+    <!-- ROI 분석 -->
+    <div class="roi-section">
+      <h2 class="card-title">📈 투자 수익률 (ROI) 분석</h2>
+      <div class="roi-value">
+        <div class="roi-percentage" id="roiValue">145%</div>
+        <div class="roi-label">10년 누적 투자 수익률</div>
+        <div class="roi-desc">
+          졸업 후 10년간 벌어들일 수입이 투자 대비 얼마나 많은지를 나타냅니다
+        </div>
+      </div>
+
+      <div class="comparison-grid">
+        <div class="comparison-item">
+          <span class="comparison-value" id="breakeven">4.2년</span>
+          <div class="comparison-label">투자비 회수 기간</div>
+        </div>
+        <div class="comparison-item">
+          <span class="comparison-value" id="income10">₩12억</span>
+          <div class="comparison-label">10년 누적 소득</div>
+        </div>
+        <div class="comparison-item">
+          <span class="comparison-value" id="netProfit">₩6.8억</span>
+          <div class="comparison-label">순수익</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <p><strong>💡 ROI 계산 방식</strong></p>
+        <ul>
+          <li>졸업 후 평균 초봉 기준: ₩<span id="avgSalary">12,000</span>만원</li>
+          <li>연봉 상승률: 연 5% 가정</li>
+          <li>10년 누적 소득: 초봉 기준 약 10~15배</li>
+          <li>ROI = (10년 소득 - 유학 비용) / 유학 비용 × 100</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>이제 실전 준비를 시작하세요</h2>
+      <p>맞춤형 로드맵과 예산 계획이 완성되었습니다</p>
+      <div>
+        <a href="results.html" class="cta-btn">← 추천 학교 다시 보기</a>
+        <a href="roadmap.html" class="cta-btn">📊 10년 로드맵 보기</a>
+        <a href="index.html" class="cta-btn" style="background: #48bb78;">🏠 홈으로</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const schoolData = {
+      stanford: { tuition: 8500, housing: 2200, salary: 12000, employment: 95 },
+      mit: { tuition: 8800, housing: 2100, salary: 12500, employment: 96 },
+      berkeley: { tuition: 6200, housing: 1900, salary: 10500, employment: 92 },
+      cmu: { tuition: 8100, housing: 2000, salary: 11500, employment: 94 },
+      toronto: { tuition: 4800, housing: 1600, salary: 9000, employment: 89 }
+    };
+
+    const majorMultiplier = {
+      cs: 1.3,
+      business: 1.1,
+      engineering: 1.2,
+      science: 1.0,
+      humanities: 0.85
+    };
+
+    const elSchool = document.getElementById('school');
+    const elMajor = document.getElementById('major');
+    const elScholarship = document.getElementById('scholarship');
+    const elLiving = document.getElementById('living');
+    const elTuition = document.getElementById('tuition');
+    const elHousing = document.getElementById('housing');
+    const elSalary = document.getElementById('salary');
+    const elEmployment = document.getElementById('employment');
+
+    function updateCalculation() {
+      const school = schoolData[elSchool.value];
+      const majorMult = majorMultiplier[elMajor.value];
+      const scholarship = parseInt(elScholarship.value);
+      const living = parseInt(elLiving.value);
+
+      // 학교 데이터 업데이트
+      elTuition.value = school.tuition;
+      elHousing.value = school.housing;
+      elSalary.value = Math.round(school.salary * majorMult);
+      elEmployment.value = school.employment;
+
+      // 연간 비용 계산
+      const yearlyTuition = school.tuition;
+      const yearlyHousing = school.housing;
+      const yearlyLiving = living * 12;
+      const yearlyTotal = yearlyTuition + yearlyHousing + yearlyLiving - scholarship;
+      const total4Years = yearlyTotal * 4;
+
+      // 요약 업데이트
+      document.getElementById('sumTuition').textContent = `₩${yearlyTuition.toLocaleString()}만원`;
+      document.getElementById('sumHousing').textContent = `₩${yearlyHousing.toLocaleString()}만원`;
+      document.getElementById('sumLiving').textContent = `₩${yearlyLiving.toLocaleString()}만원`;
+      document.getElementById('sumScholarship').textContent = `- ₩${scholarship.toLocaleString()}만원`;
+      document.getElementById('sumYearly').textContent = `₩${yearlyTotal.toLocaleString()}만원`;
+      document.getElementById('sumTotal').textContent = `₩${(total4Years / 10000).toFixed(1)}억원`;
+
+      // ROI 계산
+      const startingSalary = Math.round(school.salary * majorMult);
+      let income10Years = 0;
+      for (let i = 0; i < 10; i++) {
+        income10Years += startingSalary * Math.pow(1.05, i);
+      }
+      const netProfit = income10Years - total4Years;
+      const roi = ((netProfit / total4Years) * 100).toFixed(0);
+      const breakeven = (total4Years / startingSalary).toFixed(1);
+
+      document.getElementById('roiValue').textContent = roi + '%';
+      document.getElementById('breakeven').textContent = breakeven + '년';
+      document.getElementById('income10').textContent = `₩${(income10Years / 10000).toFixed(1)}억`;
+      document.getElementById('netProfit').textContent = `₩${(netProfit / 10000).toFixed(1)}억`;
+      document.getElementById('avgSalary').textContent = startingSalary.toLocaleString();
+
+      // 슬라이더 값 표시
+      document.getElementById('scholarshipValue').textContent = `₩${scholarship}만원`;
+      document.getElementById('livingValue').textContent = `₩${living}만원`;
+    }
+
+    elSchool.addEventListener('change', updateCalculation);
+    elMajor.addEventListener('change', updateCalculation);
+    elScholarship.addEventListener('input', updateCalculation);
+    elLiving.addEventListener('input', updateCalculation);
+
+    // 초기 계산
+    updateCalculation();
+  </script>
+</body>
+</html>
