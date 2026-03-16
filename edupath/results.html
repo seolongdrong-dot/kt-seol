@@ -6,12 +6,42 @@
   <title>AI 분석 결과 - EPIC Profile™ | EPIC</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes countUp {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+    
     body {
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      background: #f7fafc;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       color: #1a202c;
       line-height: 1.6;
-      padding: 20px;
+      padding: 40px 20px;
+      min-height: 100vh;
     }
 
     .container {
@@ -20,184 +50,380 @@
     }
 
     .header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 40px;
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: #2d3748;
+      padding: 56px 40px;
+      border-radius: 30px;
       text-align: center;
-      margin-bottom: 32px;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+      margin-bottom: 48px;
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+      animation: fadeInUp 0.8s ease;
+      position: relative;
+      overflow: hidden;
     }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #764ba2, #667eea);
+      background-size: 400% 100%;
+      animation: shimmer 3s linear infinite;
+    }
+    
     .header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
+      font-size: 3rem;
+      margin-bottom: 16px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .header p {
-      font-size: 1.1rem;
-      opacity: 0.95;
+      font-size: 1.2rem;
+      color: #4a5568;
+      font-weight: 500;
     }
 
     .section {
-      background: white;
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 32px;
+      box-shadow: 
+        0 10px 40px rgba(0,0,0,0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+      animation: fadeInUp 0.8s ease;
     }
     .section-title {
-      font-size: 1.8rem;
-      font-weight: 700;
+      font-size: 2rem;
+      font-weight: 900;
       color: #2d3748;
-      margin-bottom: 20px;
+      margin-bottom: 28px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
     .section-icon {
-      font-size: 2rem;
+      font-size: 2.5rem;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
     }
 
     /* Profile Summary */
     .profile-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 28px;
     }
     .profile-item {
-      padding: 20px;
-      background: #f7fafc;
-      border-radius: 12px;
-      border-left: 4px solid #667eea;
+      padding: 24px;
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      border-radius: 16px;
+      border-left: 6px solid #667eea;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .profile-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+      border-left-width: 8px;
     }
     .profile-label {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #718096;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
     }
     .profile-value {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #2d3748;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     /* Match Score */
     .match-score {
       text-align: center;
-      padding: 32px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 48px 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       color: white;
-      border-radius: 16px;
-      margin-bottom: 32px;
+      border-radius: 24px;
+      margin-bottom: 40px;
+      box-shadow: 
+        0 20px 60px rgba(102, 126, 234, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+      position: relative;
+      overflow: hidden;
     }
+    
+    .match-score::before {
+      content: '✨';
+      position: absolute;
+      font-size: 15rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.1;
+    }
+    
     .match-score-value {
-      font-size: 4rem;
-      font-weight: 800;
-      margin-bottom: 8px;
+      font-size: 5.5rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      animation: countUp 1s ease;
     }
     .match-score-label {
-      font-size: 1.2rem;
-      opacity: 0.9;
+      font-size: 1.4rem;
+      opacity: 0.95;
+      font-weight: 600;
+    }
+    .match-score p {
+      position: relative;
+      z-index: 1;
     }
 
     /* School Cards */
     .schools-grid {
       display: grid;
-      gap: 24px;
+      gap: 32px;
     }
     .school-card {
-      background: white;
-      border: 2px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 28px;
-      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 3px solid #e2e8f0;
+      border-radius: 24px;
+      padding: 36px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
+      overflow: hidden;
     }
+    
+    .school-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+    }
+    
     .school-card:hover {
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transform: translateY(-8px) scale(1.02);
       border-color: #667eea;
+      box-shadow: 
+        0 25px 70px rgba(102, 126, 234, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
     }
     .school-rank {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #667eea;
+      top: 28px;
+      right: 28px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      width: 48px;
-      height: 48px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 1.3rem;
+      font-weight: 900;
+      font-size: 1.6rem;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
     }
     .school-header {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      padding-right: 70px;
     }
     .school-name {
-      font-size: 1.6rem;
-      font-weight: 700;
+      font-size: 1.9rem;
+      font-weight: 900;
       color: #2d3748;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .school-location {
       color: #718096;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
+      font-weight: 500;
     }
     .school-stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 20px;
+      margin-bottom: 24px;
     }
     .stat-item {
       text-align: center;
-      padding: 12px;
-      background: #f7fafc;
-      border-radius: 8px;
+      padding: 16px;
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    .stat-item:hover {
+      background: linear-gradient(135deg, #e6f2ff 0%, #d6e4ff 100%);
+      transform: scale(1.05);
     }
     .stat-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #667eea;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       display: block;
     }
     .stat-label {
-      font-size: 0.85rem;
-      color: #718096;
-      margin-top: 4px;
+      font-size: 0.9rem;
+      color: #4a5568;
+      margin-top: 6px;
+      font-weight: 600;
     }
     .school-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
+      gap: 10px;
+      margin-bottom: 24px;
     }
     .tag {
-      padding: 6px 14px;
-      background: #edf2f7;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
       color: #4a5568;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .tag:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: scale(1.05);
     }
     .school-actions {
       display: flex;
-      gap: 12px;
+      gap: 14px;
     }
     .btn {
       flex: 1;
-      padding: 12px 24px;
+      padding: 14px 28px;
       border: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 600;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-decoration: none;
+      text-align: center;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+    }
+    .btn-secondary {
+      background: rgba(226, 232, 240, 0.9);
+      color: #4a5568;
+    }
+    .btn-secondary:hover {
+      background: rgba(203, 213, 224, 1);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Action Buttons */
+    .cta-section {
+      text-align: center;
+      padding: 56px 40px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: #2d3748;
+      border-radius: 30px;
+      margin-top: 48px;
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+      animation: fadeInUp 0.8s ease 0.4s backwards;
+    }
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 36px;
+      color: #4a5568;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-btn {
+      padding: 18px 48px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-block;
+      box-shadow: 
+        0 10px 35px rgba(102, 126, 234, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+    }
+    .cta-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 
+        0 20px 50px rgba(102, 126, 234, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 20px 10px; }
+      .header {
+        padding: 40px 28px;
+      }
+      .header h1 { font-size: 2.2rem; }
+      .section-title { font-size: 1.6rem; }
+      .match-score-value { font-size: 4rem; }
+      .cta-buttons {
+        flex-direction: column;
+      }
+      .cta-btn {
+        width: 100%;
+      }
+    }
+  </style>
       text-align: center;
       display: inline-block;
     }
@@ -306,10 +532,10 @@
     <!-- CTA Section -->
     <div class="cta-section">
       <h2>다음 단계로 넘어가세요</h2>
-      <p>10년 로드맵과 예산 시뮬레이션으로 구체적인 계획을 세워보세요</p>
+      <p>Timeline 120™과 Value-View™으로 구체적인 계획을 세워보세요</p>
       <div class="cta-buttons">
-        <a href="roadmap.html" class="cta-btn">📊 10년 로드맵 보기</a>
-        <a href="budget.html" class="cta-btn">💰 예산 시뮬레이터</a>
+        <a href="roadmap.html" class="cta-btn">⏱️ Timeline 120™ 보기</a>
+        <a href="budget.html" class="cta-btn">💎 Value-View™ 보기</a>
       </div>
     </div>
   </div>
