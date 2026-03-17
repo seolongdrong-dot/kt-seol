@@ -502,9 +502,9 @@
 
     <!-- Recommended Schools -->
     <div class="section">
-      <h2 class="section-title">
+      <h2 class="section-title" id="schoolsTitle">
         <span class="section-icon">🏫</span>
-        맞춤 학교 추천 (Top 5)
+        맞춤 학교 추천
       </h2>
       <div class="schools-grid" id="schoolsGrid"></div>
     </div>
@@ -2086,10 +2086,35 @@
 
     // 목표 국가에 따라 학교 선택
     const targetCountry = profileData.q2 || 'usa';
-    const schools = (schoolsByCountry[targetCountry] || schoolsByCountry.usa).map((school, idx) => ({
+    let schools = (schoolsByCountry[targetCountry] || schoolsByCountry.usa).map((school, idx) => ({
       rank: idx + 1,
       ...school
     }));
+
+    // 플랜에 따라 학교 개수 제한
+    const userPlan = profileData.plan || 'free';
+    const planLimits = {
+      free: 5,
+      basic: 10,
+      pro: 15,
+      premium: 9999 // 전체
+    };
+    const planNames = {
+      free: 'Free (Top 5)',
+      basic: 'Basic (Top 10)',
+      pro: 'Pro (Top 15)',
+      premium: 'Premium (전체)'
+    };
+    const maxSchools = planLimits[userPlan] || planLimits.free;
+    schools = schools.slice(0, maxSchools);
+
+    // 제목 업데이트
+    const schoolsTitle = document.getElementById('schoolsTitle');
+    const planDisplay = planNames[userPlan] || planNames.free;
+    schoolsTitle.innerHTML = `
+      <span class="section-icon">🏫</span>
+      맞춤 학교 추천 - ${planDisplay}
+    `;
 
     // Render schools
     const schoolsGrid = document.getElementById('schoolsGrid');
