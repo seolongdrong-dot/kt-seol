@@ -682,69 +682,279 @@
       `;
     });
 
-    // Sample school data (실제로는 AI API에서 가져올 데이터)
-    const schools = [
-      {
-        rank: 1,
-        name: 'Stanford University',
-        location: 'California, USA',
-        matchRate: 88,
-        tuition: '₩8,500만/년',
-        acceptance: '4.3%',
-        employment: '95%',
-        tags: ['공학 특화', '실리콘밸리', '창업 지원'],
-        description: '학생의 공학·혁신 지향 성향과 완벽히 매칭됩니다.',
-        image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80'
-      },
-      {
-        rank: 2,
-        name: 'MIT',
-        location: 'Massachusetts, USA',
-        matchRate: 85,
-        tuition: '₩8,800만/년',
-        acceptance: '3.9%',
-        employment: '96%',
-        tags: ['STEM 최강', '연구 중심', '혁신 문화'],
-        description: '수학·과학 우수 학생에게 최적의 환경을 제공합니다.',
-        image: 'https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=800&q=80'
-      },
-      {
-        rank: 3,
-        name: 'UC Berkeley',
-        location: 'California, USA',
-        matchRate: 82,
-        tuition: '₩6,200만/년',
-        acceptance: '14.5%',
-        employment: '92%',
-        tags: ['주립대', '높은 가성비', '다양성'],
-        description: '예산과 학업 수준의 균형이 탁월한 선택입니다.',
-        image: 'https://images.unsplash.com/photo-1610878722345-79c5eaf6a48c?w=800&q=80'
-      },
-      {
-        rank: 4,
-        name: 'Carnegie Mellon',
-        location: 'Pennsylvania, USA',
-        matchRate: 80,
-        tuition: '₩8,100만/년',
-        acceptance: '11.3%',
-        employment: '94%',
-        tags: ['CS 특화', '실무 중심', '취업률 우수'],
-        description: '컴퓨터과학 희망 학생에게 강력히 추천합니다.',
-        image: 'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=800&q=80'
-      },
-      {
-        rank: 5,
-        name: 'University of Toronto',
-        location: 'Ontario, Canada',
-        matchRate: 78,
-        tuition: '₩4,800만/년',
-        acceptance: '43%',
-        employment: '89%',
-        tags: ['캐나다 1위', '합리적 학비', '이민 유리'],
-        description: '합격 가능성과 비용 효율이 모두 우수합니다.',
-        image: 'https://images.unsplash.com/photo-1594608661653-8d742b5838c8?w=800&q=80'
-      }
-    ];
+    // 국가별 대학 Pool
+    const schoolsByCountry = {
+      usa: [
+        {
+          name: 'Stanford University',
+          location: 'California, USA',
+          matchRate: 88,
+          tuition: '₩8,500만/년',
+          acceptance: '4.3%',
+          employment: '95%',
+          tags: ['공학 특화', '실리콘밸리', '창업 지원'],
+          description: '학생의 공학·혁신 지향 성향과 완벽히 매칭됩니다.',
+          image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80'
+        },
+        {
+          name: 'MIT',
+          location: 'Massachusetts, USA',
+          matchRate: 85,
+          tuition: '₩8,800만/년',
+          acceptance: '3.9%',
+          employment: '96%',
+          tags: ['STEM 최강', '연구 중심', '혁신 문화'],
+          description: '수학·과학 우수 학생에게 최적의 환경을 제공합니다.',
+          image: 'https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=800&q=80'
+        },
+        {
+          name: 'UC Berkeley',
+          location: 'California, USA',
+          matchRate: 82,
+          tuition: '₩6,200만/년',
+          acceptance: '14.5%',
+          employment: '92%',
+          tags: ['주립대', '높은 가성비', '다양성'],
+          description: '예산과 학업 수준의 균형이 탁월한 선택입니다.',
+          image: 'https://images.unsplash.com/photo-1610878722345-79c5eaf6a48c?w=800&q=80'
+        },
+        {
+          name: 'Carnegie Mellon',
+          location: 'Pennsylvania, USA',
+          matchRate: 80,
+          tuition: '₩8,100만/년',
+          acceptance: '11.3%',
+          employment: '94%',
+          tags: ['CS 특화', '실무 중심', '취업률 우수'],
+          description: '컴퓨터과학 희망 학생에게 강력히 추천합니다.',
+          image: 'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=800&q=80'
+        },
+        {
+          name: 'Columbia University',
+          location: 'New York, USA',
+          matchRate: 79,
+          tuition: '₩8,900만/년',
+          acceptance: '5.1%',
+          employment: '93%',
+          tags: ['아이비리그', '뉴욕', '글로벌 네트워크'],
+          description: '도심 속 세계적 명문, 금융·비즈니스에 강점이 있습니다.',
+          image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80'
+        }
+      ],
+      uk: [
+        {
+          name: 'University of Oxford',
+          location: 'Oxford, UK',
+          matchRate: 86,
+          tuition: '₩5,500만/년',
+          acceptance: '17.5%',
+          employment: '94%',
+          tags: ['세계 1위권', '튜토리얼 시스템', '전통 명문'],
+          description: '영국 최고의 명문, 학문적 깊이와 전통을 자랑합니다.',
+          image: 'https://images.unsplash.com/photo-1548681528-6a5c45b66b42?w=800&q=80'
+        },
+        {
+          name: 'University of Cambridge',
+          location: 'Cambridge, UK',
+          matchRate: 85,
+          tuition: '₩5,400만/년',
+          acceptance: '21%',
+          employment: '95%',
+          tags: ['세계 1위권', '연구 중심', 'STEM 강세'],
+          description: '과학·공학 분야 세계 최고 수준의 연구 환경을 제공합니다.',
+          image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80'
+        },
+        {
+          name: 'Imperial College London',
+          location: 'London, UK',
+          matchRate: 83,
+          tuition: '₩5,800만/년',
+          acceptance: '14.3%',
+          employment: '96%',
+          tags: ['STEM 특화', '런던 명문', '취업률 최상'],
+          description: '공학·의학·과학 분야 영국 최고 전문 대학입니다.',
+          image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80'
+        },
+        {
+          name: 'London School of Economics (LSE)',
+          location: 'London, UK',
+          matchRate: 81,
+          tuition: '₩5,200만/년',
+          acceptance: '12.2%',
+          employment: '93%',
+          tags: ['사회과학 1위', '경제/정치', '글로벌 네트워크'],
+          description: '경제·경영·사회과학 희망 학생에게 최적의 선택입니다.',
+          image: 'https://images.unsplash.com/photo-1520986606214-8b456906c813?w=800&q=80'
+        },
+        {
+          name: 'University College London (UCL)',
+          location: 'London, UK',
+          matchRate: 79,
+          tuition: '₩5,300만/년',
+          acceptance: '17%',
+          employment: '92%',
+          tags: ['종합 명문', '다학제', '런던 중심가'],
+          description: '전공 선택의 폭이 넓고 연구 환경이 우수합니다.',
+          image: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=800&q=80'
+        }
+      ],
+      canada: [
+        {
+          name: 'University of Toronto',
+          location: 'Ontario, Canada',
+          matchRate: 84,
+          tuition: '₩4,800만/년',
+          acceptance: '43%',
+          employment: '89%',
+          tags: ['캐나다 1위', '합리적 학비', '이민 유리'],
+          description: '합격 가능성과 비용 효율이 모두 우수합니다.',
+          image: 'https://images.unsplash.com/photo-1594608661653-8d742b5838c8?w=800&q=80'
+        },
+        {
+          name: 'University of British Columbia',
+          location: 'Vancouver, Canada',
+          matchRate: 82,
+          tuition: '₩4,500만/년',
+          acceptance: '52%',
+          employment: '88%',
+          tags: ['연구 중심', '자연환경 우수', '아시아 네트워크'],
+          description: '밴쿠버의 아름다운 환경과 세계적 연구 역량을 갖췄습니다.',
+          image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80'
+        },
+        {
+          name: 'McGill University',
+          location: 'Montreal, Canada',
+          matchRate: 80,
+          tuition: '₩3,200만/년',
+          acceptance: '46%',
+          employment: '87%',
+          tags: ['의학 명문', '유럽풍 도시', '영불 이중언어'],
+          description: '캐나다 최고 명문, 의학·과학 분야 특히 강세입니다.',
+          image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80'
+        },
+        {
+          name: 'University of Waterloo',
+          location: 'Ontario, Canada',
+          matchRate: 78,
+          tuition: '₩4,200만/년',
+          acceptance: '53%',
+          employment: '91%',
+          tags: ['Co-op 최강', '공학/CS', '실무 중심'],
+          description: 'Co-op 프로그램으로 유명한 실무형 공학 명문입니다.',
+          image: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=800&q=80'
+        },
+        {
+          name: 'McMaster University',
+          location: 'Ontario, Canada',
+          matchRate: 76,
+          tuition: '₩3,800만/년',
+          acceptance: '58%',
+          employment: '86%',
+          tags: ['의학 연구', '합격률 높음', '장학금 풍부'],
+          description: '의학·건강과학 분야 연구 중심 대학입니다.',
+          image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80'
+        }
+      ],
+      australia: [
+        {
+          name: 'University of Melbourne',
+          location: 'Melbourne, Australia',
+          matchRate: 83,
+          tuition: '₩4,200만/년',
+          acceptance: '70%',
+          employment: '90%',
+          tags: ['호주 1위', '연구 중심', '생활 환경 우수'],
+          description: '호주 최고 명문, 학문적 우수성과 삶의 질을 동시에 제공합니다.',
+          image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&q=80'
+        },
+        {
+          name: 'Australian National University',
+          location: 'Canberra, Australia',
+          matchRate: 81,
+          tuition: '₩3,900만/년',
+          acceptance: '75%',
+          employment: '88%',
+          tags: ['연구 1위', '정부 지원', '장학금 풍부'],
+          description: '연구 역량 호주 최고, 정치·외교 분야 특히 강세입니다.',
+          image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800&q=80'
+        },
+        {
+          name: 'University of Sydney',
+          location: 'Sydney, Australia',
+          matchRate: 79,
+          tuition: '₩4,100만/년',
+          acceptance: '73%',
+          employment: '89%',
+          tags: ['종합 명문', '취업 네트워크', '아시아 연계'],
+          description: '시드니의 중심, 우수한 취업 네트워크와 아시아 연계성이 강점입니다.',
+          image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&q=80'
+        },
+        {
+          name: 'University of New South Wales',
+          location: 'Sydney, Australia',
+          matchRate: 78,
+          tuition: '₩4,300만/년',
+          acceptance: '69%',
+          employment: '91%',
+          tags: ['공학 특화', '혁신 문화', '산학 협력'],
+          description: '공학·비즈니스 분야 실무형 교육에 강점이 있습니다.',
+          image: 'https://images.unsplash.com/photo-1545670723-196ed0954986?w=800&q=80'
+        },
+        {
+          name: 'University of Queensland',
+          location: 'Brisbane, Australia',
+          matchRate: 76,
+          tuition: '₩3,700만/년',
+          acceptance: '72%',
+          employment: '87%',
+          tags: ['연구 중심', '따뜻한 기후', '생활비 저렴'],
+          description: '브리즈번의 쾌적한 환경과 우수한 연구 역량을 자랑합니다.',
+          image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80'
+        }
+      ],
+      singapore: [
+        {
+          name: 'National University of Singapore',
+          location: 'Singapore',
+          matchRate: 85,
+          tuition: '₩3,000만/년',
+          acceptance: '5%',
+          employment: '96%',
+          tags: ['아시아 1위', '금융 허브', '글로벌 네트워크'],
+          description: '아시아 최고 명문, 금융·공학 분야 세계적 수준입니다.',
+          image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&q=80'
+        },
+        {
+          name: 'Nanyang Technological University',
+          location: 'Singapore',
+          matchRate: 83,
+          tuition: '₩2,800만/년',
+          acceptance: '8%',
+          employment: '95%',
+          tags: ['공학 특화', '스마트 캠퍼스', '연구 혁신'],
+          description: '공학·기술 분야 아시아 최고, 최첨단 스마트 캠퍼스입니다.',
+          image: 'https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?w=800&q=80'
+        },
+        {
+          name: 'Singapore Management University',
+          location: 'Singapore',
+          matchRate: 78,
+          tuition: '₩2,600만/년',
+          acceptance: '25%',
+          employment: '93%',
+          tags: ['경영 특화', '도심 캠퍼스', '취업률 우수'],
+          description: '경영·금융 전문 대학, 싱가포르 금융가와 직결됩니다.',
+          image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'
+        }
+      ]
+    };
+
+    // 목표 국가에 따라 학교 선택
+    const targetCountry = profileData.q2 || 'usa';
+    const schools = (schoolsByCountry[targetCountry] || schoolsByCountry.usa).map((school, idx) => ({
+      rank: idx + 1,
+      ...school
+    }));
 
     // Render schools
     const schoolsGrid = document.getElementById('schoolsGrid');
