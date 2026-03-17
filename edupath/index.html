@@ -213,18 +213,41 @@
       right: 0;
       height: 4px;
       background: linear-gradient(90deg, #1a3a52, #2d4a6a, #46607d);
-        0 20px 60px rgba(102, 126, 234, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
     }
     .feature-icon {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      display: block;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-      transition: transform 0.3s ease;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a3a52 0%, #2d4a6a 50%, #4a5f8a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 8px 25px rgba(45, 74, 106, 0.4);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
     }
     .feature-card:hover .feature-icon {
-      transform: scale(1.15) rotate(5deg);
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(45, 74, 106, 0.5);
+    }
+    .feature-card:hover .feature-icon::before {
+      transform: translateX(100%);
     }
     .feature-title {
       font-family: 'Times New Roman', '맑은 고딕', serif;
@@ -378,100 +401,11 @@
       .pricing-card.featured {
         transform: scale(1);
       }
-    }
-  </style>
-      margin: 0 auto;
-    }
-    .pricing-card {
-      background: white;
-      border: 2px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 36px 28px;
-      text-align: center;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .pricing-card:hover {
-      transform: translateY(-5px);
-      border-color: #667eea;
-    }
-    .pricing-card.featured {
-      border-color: #667eea;
-      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
-    }
-    .pricing-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      background: #667eea;
-      color: white;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-    .pricing-name {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #2d3748;
-    }
-    .pricing-price {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: #667eea;
-      margin-bottom: 8px;
-    }
-    .pricing-period {
-      font-size: 0.9rem;
-      color: #718096;
-      margin-bottom: 24px;
-    }
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 28px;
-      text-align: left;
-    }
-    .pricing-features li {
-      padding: 8px 0;
-      color: #4a5568;
-      font-size: 0.95rem;
-    }
-    .pricing-features li::before {
-      content: '✓';
-      color: #48bb78;
-      font-weight: bold;
-      margin-right: 8px;
-    }
-    .pricing-btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      background: #667eea;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .pricing-btn:hover {
-      background: #5a67d8;
-    }
-
-    /* Footer */
-    .footer {
-      background: #2d3748;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .footer a {
-      color: #90cdf4;
-      text-decoration: none;
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .hero .tagline { font-size: 1.2rem; }
-      .section-title { font-size: 2rem; }
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -498,17 +432,17 @@
       </p>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">❌</div>
+          <div class="feature-icon">✗</div>
           <h3 class="feature-title">학교급별 분리</h3>
           <p class="feature-desc">초등 조기유학, 중학 보딩스쿨, 고등 대학 지원이 완전히 다른 루트임에도 통합 관리 플랫폼 전무</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">⏱️</div>
+          <div class="feature-icon">⏱</div>
           <h3 class="feature-title">단기 중심</h3>
           <p class="feature-desc">입학 시점에만 집중, 적응·재학·졸업·취업까지 이어지는 중장기 플래닝 부재</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">💸</div>
+          <div class="feature-icon">¥</div>
           <h3 class="feature-title">고가·획일화</h3>
           <p class="feature-desc">수백~수천만원 비용, 경험 기반 주관적 추천, 개인 맞춤형 알고리즘 부재</p>
         </div>
@@ -526,32 +460,32 @@
       </p>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">🎯</div>
+          <div class="feature-icon">P</div>
           <h3 class="feature-title">EPIC Profile™</h3>
           <p class="feature-desc">15문항 10분으로 완성되는 초정밀 AI 유학 DNA 분석 → 합격가능성 % 예측 + 맞춤 학교 추천</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">⏱️</div>
+          <div class="feature-icon">T</div>
           <h3 class="feature-title">Timeline 120™</h3>
           <p class="feature-desc">입학 전부터 취업 후까지, 120개월의 생애주기 설계. 준비기→지원기→적응기→성장기→진출기 전 과정 동행</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">💎</div>
+          <div class="feature-icon">V</div>
           <h3 class="feature-title">Value-View™</h3>
           <p class="feature-desc">학비 대비 졸업 후 기대 연봉을 시각화한 투자 분석. ROI 그래프로 실질적 의사결정 지원</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔔</div>
+          <div class="feature-icon">G</div>
           <h3 class="feature-title">Pulse Guard™</h3>
           <p class="feature-desc">비자·이민 정책 등 글로벌 변수를 24시간 감지 및 반영. 트럼프 정책 변경도 즉각 대응</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🛸</div>
+          <div class="feature-icon">C</div>
           <h3 class="feature-title">Orbit Chat™</h3>
           <p class="feature-desc">Claude 기반으로 학생의 전 여정을 궤도(Orbit) 안에 유지. 무제한 AI 컨설팅</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🌏</div>
+          <div class="feature-icon">K</div>
           <h3 class="feature-title">한국 맥락 완전 반영</h3>
           <p class="feature-desc">한국 학제·문화 이해 + 미국·영국·캐나다·호주·싱가포르 등 교육 선진국 전 커버</p>
         </div>
