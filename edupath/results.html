@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI 분석 결과 - EPIC Profile™ | EPIC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
@@ -34,12 +37,12 @@
     }
     
     body {
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-family: 'Crimson Text', 'Georgia', serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       background-size: 400% 400%;
       animation: gradientShift 15s ease infinite;
       color: #1a202c;
-      line-height: 1.6;
+      line-height: 1.7;
       padding: 40px 20px;
       min-height: 100vh;
     }
@@ -79,13 +82,15 @@
     }
     
     .header h1 {
+      font-family: 'Playfair Display', serif;
       font-size: 3rem;
       margin-bottom: 16px;
-      font-weight: 900;
+      font-weight: 700;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      font-style: italic;
     }
     .header p {
       font-size: 1.2rem;
@@ -106,8 +111,9 @@
       animation: fadeInUp 0.8s ease;
     }
     .section-title {
+      font-family: 'Playfair Display', serif;
       font-size: 2rem;
-      font-weight: 900;
+      font-weight: 700;
       color: #2d3748;
       margin-bottom: 28px;
       display: flex;
@@ -206,10 +212,46 @@
       -webkit-backdrop-filter: blur(10px);
       border: 3px solid #e2e8f0;
       border-radius: 24px;
-      padding: 36px;
+      padding: 0;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
+    }
+    
+    .school-hero {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .school-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+    }
+    
+    .school-hero-name {
+      font-family: 'Playfair Display', serif;
+      position: absolute;
+      bottom: 20px;
+      left: 24px;
+      right: 24px;
+      color: white;
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      z-index: 1;
+      font-style: italic;
+    }
+    
+    .school-content {
+      padding: 36px;
     }
     
     .school-card::before {
@@ -222,6 +264,7 @@
       background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
       background-size: 200% 100%;
       animation: shimmer 3s linear infinite;
+      z-index: 2;
     }
     
     .school-card:hover {
@@ -233,8 +276,8 @@
     }
     .school-rank {
       position: absolute;
-      top: 28px;
-      right: 28px;
+      top: 20px;
+      right: 20px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       width: 60px;
@@ -246,16 +289,18 @@
       font-weight: 900;
       font-size: 1.6rem;
       box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      z-index: 2;
     }
     .school-header {
       margin-bottom: 24px;
-      padding-right: 70px;
     }
     .school-name {
+      font-family: 'Playfair Display', serif;
       font-size: 1.9rem;
-      font-weight: 900;
+      font-weight: 700;
       color: #2d3748;
       margin-bottom: 10px;
+      font-style: italic;
     }
     .school-location {
       color: #718096;
@@ -492,7 +537,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>� EPIC Profile™ 분석 완료!</h1>
+      <h1>🎯 EPIC Profile™ 분석 완료!</h1>
       <p>당신만의 맞춤형 유학 로드맵이 준비되었습니다</p>
     </div>
 
@@ -606,7 +651,8 @@
         acceptance: '4.3%',
         employment: '95%',
         tags: ['공학 특화', '실리콘밸리', '창업 지원'],
-        description: '학생의 공학·혁신 지향 성향과 완벽히 매칭됩니다.'
+        description: '학생의 공학·혁신 지향 성향과 완벽히 매칭됩니다.',
+        image: 'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800&q=80'
       },
       {
         rank: 2,
@@ -617,13 +663,46 @@
         acceptance: '3.9%',
         employment: '96%',
         tags: ['STEM 최강', '연구 중심', '혁신 문화'],
-        description: '수학·과학 우수 학생에게 최적의 환경을 제공합니다.'
+        description: '수학·과학 우수 학생에게 최적의 환경을 제공합니다.',
+        image: 'https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=800&q=80'
       },
       {
         rank: 3,
         name: 'UC Berkeley',
         location: 'California, USA',
         matchRate: 82,
+        tuition: '₩6,200만/년',
+        acceptance: '14.5%',
+        employment: '92%',
+        tags: ['주립대', '높은 가성비', '다양성'],
+        description: '예산과 학업 수준의 균형이 탁월한 선택입니다.',
+        image: 'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=800&q=80'
+      },
+      {
+        rank: 4,
+        name: 'Carnegie Mellon',
+        location: 'Pennsylvania, USA',
+        matchRate: 80,
+        tuition: '₩8,100만/년',
+        acceptance: '11.3%',
+        employment: '94%',
+        tags: ['CS 특화', '실무 중심', '취업률 우수'],
+        description: '컴퓨터과학 희망 학생에게 강력히 추천합니다.',
+        image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80'
+      },
+      {
+        rank: 5,
+        name: 'University of Toronto',
+        location: 'Ontario, Canada',
+        matchRate: 78,
+        tuition: '₩4,800만/년',
+        acceptance: '43%',
+        employment: '89%',
+        tags: ['캐나다 1위', '합리적 학비', '이민 유리'],
+        description: '합격 가능성과 비용 효율이 모두 우수합니다.',
+        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80'
+      }
+    ];
         tuition: '₩6,200만/년',
         acceptance: '14.5%',
         employment: '92%',
@@ -659,40 +738,44 @@
     schools.forEach(school => {
       schoolsGrid.innerHTML += `
         <div class="school-card">
-          <div class="school-rank">#${school.rank}</div>
-          <div class="school-header">
-            <h3 class="school-name">${school.name}</h3>
-            <div class="school-location">📍 ${school.location}</div>
+          <div class="school-hero" style="background-image: url('${school.image}');">
+            <div class="school-hero-name">${school.name}</div>
           </div>
-          <div class="school-stats">
-            <div class="stat-item">
-              <span class="stat-value">${school.matchRate}%</span>
-              <div class="stat-label">매칭률</div>
+          <div class="school-content">
+            <div class="school-rank">#${school.rank}</div>
+            <div class="school-header">
+              <div class="school-location">📍 ${school.location}</div>
             </div>
-            <div class="stat-item">
-              <span class="stat-value">${school.tuition}</span>
-              <div class="stat-label">연간 학비</div>
+            <div class="school-stats">
+              <div class="stat-item">
+                <span class="stat-value">${school.matchRate}%</span>
+                <div class="stat-label">매칭률</div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">${school.tuition}</span>
+                <div class="stat-label">연간 학비</div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">${school.acceptance}</span>
+                <div class="stat-label">합격률</div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">${school.employment}</span>
+                <div class="stat-label">취업률</div>
+              </div>
             </div>
-            <div class="stat-item">
-              <span class="stat-value">${school.acceptance}</span>
-              <div class="stat-label">합격률</div>
+            <div class="school-tags">
+              ${school.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
             </div>
-            <div class="stat-item">
-              <span class="stat-value">${school.employment}</span>
-              <div class="stat-label">취업률</div>
+            <p style="color: #4a5568; margin-bottom: 20px; line-height: 1.7;">${school.description}</p>
+            <div class="school-actions">
+              <a href="roadmap.html?school=${encodeURIComponent(school.name)}" class="btn btn-primary">
+                로드맵 보기
+              </a>
+              <a href="budget.html?school=${encodeURIComponent(school.name)}" class="btn btn-secondary">
+                예산 계산
+              </a>
             </div>
-          </div>
-          <div class="school-tags">
-            ${school.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-          </div>
-          <p style="color: #4a5568; margin-bottom: 20px;">${school.description}</p>
-          <div class="school-actions">
-            <a href="roadmap.html?school=${encodeURIComponent(school.name)}" class="btn btn-primary">
-              로드맵 보기
-            </a>
-            <a href="budget.html?school=${encodeURIComponent(school.name)}" class="btn btn-secondary">
-              예산 계산
-            </a>
           </div>
         </div>
       `;
