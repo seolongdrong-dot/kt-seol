@@ -37,8 +37,8 @@
     }
     
     body {
-      font-family: 'Crimson Text', 'Georgia', serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      font-family: 'Times New Roman', 'Malgun Gothic', '맑은 고딕', serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 50%, #d4dce6 100%);
       background-size: 400% 400%;
       animation: gradientShift 15s ease infinite;
       color: #1a202c;
@@ -108,16 +108,16 @@
       width: 8px;
       height: 100%;
       background: linear-gradient(180deg, 
-        #667eea 0%, 
-        #764ba2 25%, 
-        #f093fb 50%,
-        #764ba2 75%,
-        #667eea 100%
+        #1a3a52 0%, 
+        #2d4a6a 25%, 
+        #46607d 50%,
+        #2d4a6a 75%,
+        #1a3a52 100%
       );
       border-radius: 10px;
       box-shadow: 
-        0 0 30px rgba(102, 126, 234, 0.6),
-        0 0 60px rgba(118, 75, 162, 0.4);
+        0 0 30px rgba(45, 74, 106, 0.6),
+        0 0 60px rgba(26, 58, 82, 0.4);
     }
 
     .phase {
@@ -183,16 +183,16 @@
       transform: translateX(-50%);
       width: 90px;
       height: 90px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      background: linear-gradient(135deg, #2d4a6a 0%, #1a3a52 50%, #46607d 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.8rem;
       box-shadow: 
-        0 10px 40px rgba(102, 126, 234, 0.6),
+        0 10px 40px rgba(45, 74, 106, 0.6),
         0 0 0 8px rgba(255, 255, 255, 0.9),
-        0 0 0 12px rgba(102, 126, 234, 0.2);
+        0 0 0 12px rgba(45, 74, 106, 0.2);
       z-index: 10;
       transition: all 0.3s ease;
       animation: pulse 3s ease-in-out infinite;
@@ -201,9 +201,9 @@
     .phase:hover .phase-marker {
       transform: translateX(-50%) scale(1.15) rotate(360deg);
       box-shadow: 
-        0 15px 50px rgba(102, 126, 234, 0.8),
+        0 15px 50px rgba(45, 74, 106, 0.8),
         0 0 0 8px rgba(255, 255, 255, 1),
-        0 0 0 12px rgba(102, 126, 234, 0.4);
+        0 0 0 12px rgba(45, 74, 106, 0.4);
     }
     
     .phase:nth-child(odd) .phase-marker {
@@ -214,10 +214,10 @@
     }
 
     .phase-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', '맑은 고딕', serif;
       font-size: 2.2rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #1a3a52 0%, #2d4a6a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -226,14 +226,14 @@
     }
     .phase-period {
       display: inline-block;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #2d4a6a, #1a3a52);
       color: white;
       font-weight: 700;
       padding: 8px 20px;
       border-radius: 50px;
       margin-bottom: 20px;
       font-size: 1rem;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 15px rgba(45, 74, 106, 0.3);
     }
     .phase-desc {
       color: #4a5568;
@@ -270,10 +270,10 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
     .checklist-items li:hover {
-      background: linear-gradient(135deg, #e6f2ff 0%, #d6e4ff 100%);
+      background: linear-gradient(135deg, #e6f0f7 0%, #d6e4f0 100%);
       transform: translateX(8px);
-      border-color: #667eea;
-      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+      border-color: #2d4a6a;
+      box-shadow: 0 6px 20px rgba(45, 74, 106, 0.2);
     }
     .checklist-items li::before {
       content: '☑️';

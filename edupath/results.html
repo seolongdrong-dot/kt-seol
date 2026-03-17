@@ -37,8 +37,8 @@
     }
     
     body {
-      font-family: 'Crimson Text', 'Georgia', serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      font-family: 'Times New Roman', 'Malgun Gothic', '맑은 고딕', serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 50%, #d4dce6 100%);
       background-size: 400% 400%;
       animation: gradientShift 15s ease infinite;
       color: #1a202c;
@@ -76,21 +76,21 @@
       left: 0;
       right: 0;
       height: 6px;
-      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #764ba2, #667eea);
+      background: linear-gradient(90deg, #1a3a52, #2d4a6a, #46607d, #2d4a6a, #1a3a52);
       background-size: 400% 100%;
       animation: shimmer 3s linear infinite;
     }
     
     .header h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', '맑은 고딕', serif;
       font-size: 3rem;
       margin-bottom: 16px;
       font-weight: 700;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #1a3a52 0%, #2d4a6a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      font-style: italic;
+      letter-spacing: 1px;
     }
     .header p {
       font-size: 1.2rem;
@@ -111,7 +111,7 @@
       animation: fadeInUp 0.8s ease;
     }
     .section-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', '맑은 고딕', serif;
       font-size: 2rem;
       font-weight: 700;
       color: #2d3748;
@@ -136,13 +136,13 @@
       padding: 24px;
       background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
       border-radius: 16px;
-      border-left: 6px solid #667eea;
+      border-left: 6px solid #2d4a6a;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
     .profile-item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+      box-shadow: 0 8px 25px rgba(45, 74, 106, 0.2);
       border-left-width: 8px;
     }
     .profile-label {
@@ -163,12 +163,12 @@
     .match-score {
       text-align: center;
       padding: 48px 40px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      background: linear-gradient(135deg, #2d4a6a 0%, #1a3a52 50%, #3d5a7a 100%);
       color: white;
       border-radius: 24px;
       margin-bottom: 40px;
       box-shadow: 
-        0 20px 60px rgba(102, 126, 234, 0.5),
+        0 20px 60px rgba(45, 74, 106, 0.5),
         0 0 0 1px rgba(255, 255, 255, 0.3) inset;
       position: relative;
       overflow: hidden;
@@ -237,7 +237,7 @@
     }
     
     .school-hero-name {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', 'Malgun Gothic', '맑은 고딕', serif;
       position: absolute;
       bottom: 20px;
       left: 24px;
@@ -247,7 +247,6 @@
       font-weight: 700;
       text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
       z-index: 1;
-      font-style: italic;
     }
     
     .school-content {
@@ -261,7 +260,7 @@
       left: 0;
       right: 0;
       height: 5px;
-      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+      background: linear-gradient(90deg, #1a3a52, #2d4a6a, #46607d);
       background-size: 200% 100%;
       animation: shimmer 3s linear infinite;
       z-index: 2;
@@ -269,16 +268,16 @@
     
     .school-card:hover {
       transform: translateY(-8px) scale(1.02);
-      border-color: #667eea;
+      border-color: #2d4a6a;
       box-shadow: 
-        0 25px 70px rgba(102, 126, 234, 0.3),
+        0 25px 70px rgba(45, 74, 106, 0.3),
         0 0 0 1px rgba(255, 255, 255, 0.8) inset;
     }
     .school-rank {
       position: absolute;
       top: 20px;
       right: 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #2d4a6a 0%, #1a3a52 100%);
       color: white;
       width: 60px;
       height: 60px;
@@ -288,19 +287,18 @@
       justify-content: center;
       font-weight: 900;
       font-size: 1.6rem;
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 8px 25px rgba(45, 74, 106, 0.4);
       z-index: 2;
     }
     .school-header {
       margin-bottom: 24px;
     }
     .school-name {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', 'Malgun Gothic', '맑은 고딕', serif;
       font-size: 1.9rem;
       font-weight: 700;
       color: #2d3748;
       margin-bottom: 10px;
-      font-style: italic;
     }
     .school-location {
       color: #718096;
@@ -321,13 +319,13 @@
       transition: all 0.3s;
     }
     .stat-item:hover {
-      background: linear-gradient(135deg, #e6f2ff 0%, #d6e4ff 100%);
+      background: linear-gradient(135deg, #e6f0f7 0%, #d6e4f0 100%);
       transform: scale(1.05);
     }
     .stat-value {
       font-size: 1.8rem;
       font-weight: 900;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #2d4a6a 0%, #1a3a52 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -356,7 +354,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .tag:hover {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #2d4a6a 0%, #1a3a52 100%);
       color: white;
       transform: scale(1.05);
     }
@@ -379,13 +377,13 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #2d4a6a 0%, #1a3a52 100%);
       color: white;
-      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 6px 20px rgba(45, 74, 106, 0.4);
     }
     .btn-primary:hover {
       transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+      box-shadow: 0 10px 30px rgba(45, 74, 106, 0.5);
     }
     .btn-secondary {
       background: rgba(226, 232, 240, 0.9);
@@ -413,10 +411,11 @@
       animation: fadeInUp 0.8s ease 0.4s backwards;
     }
     .cta-section h2 {
+      font-family: 'Times New Roman', '맑은 고딕', serif;
       font-size: 2.5rem;
       margin-bottom: 20px;
-      font-weight: 900;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-weight: 700;
+      background: linear-gradient(135deg, #1a3a52 0%, #2d4a6a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -434,22 +433,22 @@
     }
     .cta-btn {
       padding: 18px 48px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #2d4a6a 0%, #1a3a52 100%);
       color: white;
       text-decoration: none;
       border-radius: 50px;
       font-size: 1.2rem;
-      font-weight: 800;
+      font-weight: 700;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: inline-block;
       box-shadow: 
-        0 10px 35px rgba(102, 126, 234, 0.4),
+        0 10px 35px rgba(45, 74, 106, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.3) inset;
     }
     .cta-btn:hover {
       transform: translateY(-5px) scale(1.05);
       box-shadow: 
-        0 20px 50px rgba(102, 126, 234, 0.5),
+        0 20px 50px rgba(45, 74, 106, 0.5),
         0 0 0 1px rgba(255, 255, 255, 0.5) inset;
     }
 
@@ -587,7 +586,19 @@
 
   <script>
     // Load profile data
-    const profileData = JSON.parse(localStorage.getItem('edupath_profile') || '{}');
+    let profileData = JSON.parse(localStorage.getItem('edupath_profile') || '{}');
+    
+    // 데이터가 없으면 샘플 데이터 사용
+    if (Object.keys(profileData).length === 0) {
+      profileData = {
+        q1: 'high_late',
+        q2: 'usa',
+        q3: 'advanced',
+        q4: 'top5',
+        q5: '50to80m',
+        q6: 'engineering'
+      };
+    }
 
     // Profile labels
     const profileLabels = {
