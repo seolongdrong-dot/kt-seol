@@ -596,7 +596,11 @@
         q3: 'advanced',
         q4: 'top5',
         q5: '50to80m',
-        q6: 'engineering'
+        q6: 'engineering',
+        q7: 'outgoing',
+        q7_mbti: 'ENTJ',
+        q7_blood: 'A',
+        q7_zodiac: 'leo'
       };
     }
 
@@ -628,12 +632,39 @@
         business: '💼 경영/경제', engineering: '⚙️ 공학/컴퓨터',
         science: '🔬 자연과학/의학', humanities: '📚 인문/사회',
         arts: '🎨 예체능', undecided: '미정'
+      }},
+      q7: { label: '기본 성향', values: {
+        outgoing: '외향적·사교적', balanced: '균형잡힌 성격', 
+        introverted: '내향적·집중형'
+      }},
+      q7_mbti: { label: 'MBTI', values: {
+        ISTJ: 'ISTJ - 논리주의자', ISFJ: 'ISFJ - 수호자',
+        INFJ: 'INFJ - 옹호자', INTJ: 'INTJ - 건축가',
+        ISTP: 'ISTP - 장인', ISFP: 'ISFP - 모험가',
+        INFP: 'INFP - 중재자', INTP: 'INTP - 논리술사',
+        ESTP: 'ESTP - 사업가', ESFP: 'ESFP - 연예인',
+        ENFP: 'ENFP - 활동가', ENTP: 'ENTP - 변론가',
+        ESTJ: 'ESTJ - 경영자', ESFJ: 'ESFJ - 집정관',
+        ENFJ: 'ENFJ - 선도자', ENTJ: 'ENTJ - 통솔자',
+        unknown: '미입력'
+      }},
+      q7_blood: { label: '혈액형', values: {
+        A: 'A형', B: 'B형', O: 'O형', AB: 'AB형', unknown: '미입력'
+      }},
+      q7_zodiac: { label: '별자리', values: {
+        aries: '♈ 양자리', taurus: '♉ 황소자리',
+        gemini: '♊ 쌍둥이자리', cancer: '♋ 게자리',
+        leo: '♌ 사자자리', virgo: '♍ 처녀자리',
+        libra: '♎ 천칭자리', scorpio: '♏ 전갈자리',
+        sagittarius: '♐ 사수자리', capricorn: '♑ 염소자리',
+        aquarius: '♒ 물병자리', pisces: '♓ 물고기자리',
+        unknown: '미입력'
       }}
     };
 
     // Render profile summary
     const profileGrid = document.getElementById('profileGrid');
-    ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].forEach(key => {
+    ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q7_mbti', 'q7_blood', 'q7_zodiac'].forEach(key => {
       const item = profileLabels[key];
       let value = profileData[key];
       
@@ -663,7 +694,7 @@
         employment: '95%',
         tags: ['공학 특화', '실리콘밸리', '창업 지원'],
         description: '학생의 공학·혁신 지향 성향과 완벽히 매칭됩니다.',
-        image: 'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800&q=80'
+        image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80'
       },
       {
         rank: 2,
@@ -687,7 +718,7 @@
         employment: '92%',
         tags: ['주립대', '높은 가성비', '다양성'],
         description: '예산과 학업 수준의 균형이 탁월한 선택입니다.',
-        image: 'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=800&q=80'
+        image: 'https://images.unsplash.com/photo-1610878722345-79c5eaf6a48c?w=800&q=80'
       },
       {
         rank: 4,
@@ -699,7 +730,7 @@
         employment: '94%',
         tags: ['CS 특화', '실무 중심', '취업률 우수'],
         description: '컴퓨터과학 희망 학생에게 강력히 추천합니다.',
-        image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80'
+        image: 'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=800&q=80'
       },
       {
         rank: 5,
@@ -711,7 +742,7 @@
         employment: '89%',
         tags: ['캐나다 1위', '합리적 학비', '이민 유리'],
         description: '합격 가능성과 비용 효율이 모두 우수합니다.',
-        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80'
+        image: 'https://images.unsplash.com/photo-1594608661653-8d742b5838c8?w=800&q=80'
       }
     ];
 

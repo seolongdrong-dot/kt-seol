@@ -450,22 +450,82 @@
       </div>
     </div>
 
-    <!-- Q7: 성격 유형 -->
+    <!-- Q7: 성격 유형 (확장) -->
     <div class="question-container" data-question="7">
-      <h2 class="question-title">학생의 성격 유형은?</h2>
-      <p class="question-desc">학교 환경 매칭에 중요한 요소입니다</p>
-      <div class="options">
-        <div class="option" data-value="outgoing">
-          <span class="option-label">외향적·사교적</span>
-          <span class="option-sub">큰 규모 학교, 다양한 활동 (도시형)</span>
-        </div>
-        <div class="option" data-value="balanced">
-          <span class="option-label">균형잡힌 성격</span>
-          <span class="option-sub">중간 규모 학교, 적절한 지원</span>
-        </div>
-        <div class="option" data-value="introverted">
-          <span class="option-label">내향적·집중형</span>
-          <span class="option-sub">소규모 학교, 밀착 지도 (전원형)</span>
+      <h2 class="question-title">학생의 성격 유형 프로필</h2>
+      <p class="question-desc">학교 환경 매칭 및 학생 분석에 활용됩니다</p>
+      
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-weight: 700; color: #2d3748; margin-bottom: 8px; font-size: 1rem;">MBTI 유형</label>
+        <select id="mbti" style="width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem;">
+          <option value="">선택하세요</option>
+          <option value="ISTJ">ISTJ - 논리주의자</option>
+          <option value="ISFJ">ISFJ - 수호자</option>
+          <option value="INFJ">INFJ - 옹호자</option>
+          <option value="INTJ">INTJ - 건축가</option>
+          <option value="ISTP">ISTP - 장인</option>
+          <option value="ISFP">ISFP - 모험가</option>
+          <option value="INFP">INFP - 중재자</option>
+          <option value="INTP">INTP - 논리술사</option>
+          <option value="ESTP">ESTP - 사업가</option>
+          <option value="ESFP">ESFP - 연예인</option>
+          <option value="ENFP">ENFP - 활동가</option>
+          <option value="ENTP">ENTP - 변론가</option>
+          <option value="ESTJ">ESTJ - 경영자</option>
+          <option value="ESFJ">ESFJ - 집정관</option>
+          <option value="ENFJ">ENFJ - 선도자</option>
+          <option value="ENTJ">ENTJ - 통솔자</option>
+          <option value="unknown">잘 모르겠어요</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-weight: 700; color: #2d3748; margin-bottom: 8px; font-size: 1rem;">혈액형</label>
+        <select id="bloodType" style="width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem;">
+          <option value="">선택하세요</option>
+          <option value="A">A형</option>
+          <option value="B">B형</option>
+          <option value="O">O형</option>
+          <option value="AB">AB형</option>
+          <option value="unknown">잘 모르겠어요</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-weight: 700; color: #2d3748; margin-bottom: 8px; font-size: 1rem;">별자리</label>
+        <select id="zodiac" style="width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem;">
+          <option value="">선택하세요</option>
+          <option value="aries">♈ 양자리 (3/21-4/19)</option>
+          <option value="taurus">♉ 황소자리 (4/20-5/20)</option>
+          <option value="gemini">♊ 쌍둥이자리 (5/21-6/21)</option>
+          <option value="cancer">♋ 게자리 (6/22-7/22)</option>
+          <option value="leo">♌ 사자자리 (7/23-8/22)</option>
+          <option value="virgo">♍ 처녀자리 (8/23-9/22)</option>
+          <option value="libra">♎ 천칭자리 (9/23-10/23)</option>
+          <option value="scorpio">♏ 전갈자리 (10/24-11/22)</option>
+          <option value="sagittarius">♐ 사수자리 (11/23-12/21)</option>
+          <option value="capricorn">♑ 염소자리 (12/22-1/19)</option>
+          <option value="aquarius">♒ 물병자리 (1/20-2/18)</option>
+          <option value="pisces">♓ 물고기자리 (2/19-3/20)</option>
+          <option value="unknown">잘 모르겠어요</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-weight: 700; color: #2d3748; margin-bottom: 12px; font-size: 1rem;">기본 성향</label>
+        <div class="options">
+          <div class="option" data-value="outgoing">
+            <span class="option-label">외향적·사교적</span>
+            <span class="option-sub">큰 규모 학교, 다양한 활동 (도시형)</span>
+          </div>
+          <div class="option" data-value="balanced">
+            <span class="option-label">균형잡힌 성격</span>
+            <span class="option-sub">중간 규모 학교, 적절한 지원</span>
+          </div>
+          <div class="option" data-value="introverted">
+            <span class="option-label">내향적·집중형</span>
+            <span class="option-sub">소규모 학교, 밀착 지도 (전원형)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -666,7 +726,12 @@
           answers[`q${questionNum}`] = this.dataset.value;
         }
         
-        nextBtn.disabled = false;
+        // Q7에서 option 선택 시 checkQ7Complete 호출
+        if (questionNum === '7') {
+          checkQ7Complete();
+        } else {
+          nextBtn.disabled = false;
+        }
       });
     });
 
@@ -675,6 +740,26 @@
       answers.q15 = this.value;
       nextBtn.disabled = false;
     });
+
+    // Q7 확장 입력 이벤트 (MBTI, 혈액형, 별자리)
+    document.getElementById('mbti')?.addEventListener('change', function() {
+      answers.q7_mbti = this.value;
+      checkQ7Complete();
+    });
+    document.getElementById('bloodType')?.addEventListener('change', function() {
+      answers.q7_blood = this.value;
+      checkQ7Complete();
+    });
+    document.getElementById('zodiac')?.addEventListener('change', function() {
+      answers.q7_zodiac = this.value;
+      checkQ7Complete();
+    });
+
+    function checkQ7Complete() {
+      if (currentQuestion === 7 && answers.q7_mbti && answers.q7_blood && answers.q7_zodiac && answers.q7) {
+        nextBtn.disabled = false;
+      }
+    }
 
     // 다음 버튼
     nextBtn.addEventListener('click', () => {
@@ -686,18 +771,28 @@
       }
 
       const currentQ = questions[currentQuestion - 1];
-      const isMulti = currentQ.querySelector('[data-multi]');
-      const selected = isMulti 
-        ? currentQ.querySelectorAll('.option.selected').length > 0
-        : currentQ.querySelector('.option.selected') || currentQuestion === 15;
+      
+      // Q7 특수 처리 - 모든 필드 확인
+      if (currentQuestion === 7) {
+        if (!answers.q7 || !answers.q7_mbti || !answers.q7_blood || !answers.q7_zodiac) {
+          alert('모든 성격 프로필 항목을 입력해주세요');
+          return;
+        }
+      } else {
+        const isMulti = currentQ.querySelector('[data-multi]');
+        const selected = isMulti 
+          ? currentQ.querySelectorAll('.option.selected').length > 0
+          : currentQ.querySelector('.option.selected') || currentQuestion === 15;
 
-      if (!selected && currentQuestion !== 15) {
-        alert('답변을 선택해주세요');
-        return;
+        if (!selected && currentQuestion !== 15) {
+          alert('답변을 선택해주세요');
+          return;
+        }
       }
 
       currentQuestion++;
       updateUI();
+    });
     });
 
     // 이전 버튼
@@ -726,8 +821,20 @@
       // 마지막 질문은 입력란이므로 항상 활성화
       nextBtn.disabled = currentQuestion === 15 ? false : true;
 
-      // 이전 답변 있으면 버튼 활성화
-      if (answers[`q${currentQuestion}`]) {
+      // Q7 특수 처리 - select 값 복원 및 완료 체크
+      if (currentQuestion === 7) {
+        if (answers.q7_mbti) document.getElementById('mbti').value = answers.q7_mbti;
+        if (answers.q7_blood) document.getElementById('bloodType').value = answers.q7_blood;
+        if (answers.q7_zodiac) document.getElementById('zodiac').value = answers.q7_zodiac;
+        
+        if (answers.q7 && answers.q7_mbti && answers.q7_blood && answers.q7_zodiac) {
+          nextBtn.disabled = false;
+        }
+      } else if (currentQuestion === 15) {
+        // Q15 텍스트 입력 복원
+        if (answers.q15) document.getElementById('additionalInfo').value = answers.q15;
+      } else if (answers[`q${currentQuestion}`]) {
+        // 이전 답변 있으면 버튼 활성화
         nextBtn.disabled = false;
       }
     }
